@@ -7,6 +7,9 @@ import morgan from "morgan";
 import { authMiddleware } from "./middleware/authMiddleware";
 import tenantRouter from "./routes/tenantRoutes";
 import managerRouter from "./routes/managerRoutes";
+import propertyRouter from "./routes/propertyRoutes";
+import leaseRouter from "./routes/leaseRoutes";
+import applicationRouter from "./routes/applicationRoutes";
 
 dotenv.config();
 const app = express();
@@ -25,6 +28,9 @@ app.get("/", (req, res) => {
 
 app.use("/tenants", authMiddleware(["tenant"]), tenantRouter);
 app.use("/managers", authMiddleware(["manager"]), managerRouter);
+app.use("/properties", propertyRouter);
+app.use("/leases", leaseRouter);
+app.use("/applications", applicationRouter);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
