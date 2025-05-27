@@ -32,7 +32,7 @@ app.use("/properties", propertyRouter);
 app.use("/leases", leaseRouter);
 app.use("/applications", applicationRouter);
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
+const port = Number(process.env.PORT) || 5000;
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
 });
