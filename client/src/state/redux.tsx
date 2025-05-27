@@ -19,6 +19,7 @@ export const makeStore = () => {
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(api.middleware),
+    devTools: process.env.NODE_ENV !== "production",
   });
 };
 
