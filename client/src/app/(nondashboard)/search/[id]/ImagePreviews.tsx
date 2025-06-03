@@ -1,11 +1,35 @@
 "use client";
 
+import { useGetPropertyQuery } from "@/state/api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ImagePreviews = ({ images }: ImagePreviewsProps) => {
+const ImagePreviews = ({ propertyId }: PropertyOverviewProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [images, setImages] = useState<string[]>([
+    "/NoAvaliblePropertyImage.png",
+  ]);
+  const {
+    data: property,
+    isError,
+    isLoading,
+  } = useGetPropertyQuery(propertyId);
+
+  useEffect(() => {
+    console.log("Property data:", property);
+
+    if (property?.photoUrls && property.photoUrls.length > 0) {
+      if (!property.photoUrls[0].includes("example")) {
+        setImages(property.photoUrls);
+      }
+    }
+  }, [property]);
+
+  if (isLoading) return <>Loading...</>;
+  if (isError || !property) {
+    return <>Property not Found</>;
+  }
 
   const handlePrev = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));

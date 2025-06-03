@@ -7,7 +7,7 @@ import {
 import multer from "multer";
 import { authMiddleware } from "../middleware/authMiddleware";
 
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({});
 const upload = multer({ storage: storage });
 
 const propertyRouter = express.Router();

@@ -5,12 +5,13 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import { v2 as cloudinary } from "cloudinary";
 
 const prisma = new PrismaClient();
 
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
-});
+// const s3Client = new S3Client({
+//   region: process.env.AWS_REGION,
+// });
 
 export const getProperties = async (
   req: Request,
@@ -224,6 +225,16 @@ export const createProperty = async (
     //   })
     // );
 
+    const photoUrls = await Promise.all(
+      files.map(async (file) => {
+        let result = await cloudinary.uploader.upload(file.path, {
+          public_id: `properties/${Date.now()}-${file.originalname}`,
+          resource_type: "image",
+        });
+        return result.secure_url;
+      })
+    );
+
     const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
       {
         street: address,
@@ -258,7 +269,7 @@ export const createProperty = async (
     const newProperty = await prisma.property.create({
       data: {
         ...propertyData,
-        // photoUrls,
+        photoUrls,
         locationId: location.id,
         managerCognitoId,
         amenities:

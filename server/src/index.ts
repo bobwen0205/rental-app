@@ -10,9 +10,11 @@ import managerRouter from "./routes/managerRoutes";
 import propertyRouter from "./routes/propertyRoutes";
 import leaseRouter from "./routes/leaseRoutes";
 import applicationRouter from "./routes/applicationRoutes";
+import connectCloudinary from "./configs/cloudinary";
 
 dotenv.config();
 const app = express();
+connectCloudinary();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
