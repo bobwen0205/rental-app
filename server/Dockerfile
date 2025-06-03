@@ -29,4 +29,4 @@ RUN npm run build
 EXPOSE 4000
 
 # Run the app
-CMD ["node", "dist/index.js"]
+CMD ["npx", "ts-node", "src/index.ts"]
