@@ -19,6 +19,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   //       (userRole === "manager" && pathname.startsWith("/search")) ||
   //       (userRole === "manager" && pathname === "/")
   //     ) {
+  //       toast.error(
+  //         "Managers cannot access this page. Please use tenant account."
+  //       );
   //       router.push("/managers/properties", { scroll: false });
   //     } else {
   //       setIsLoading(false);

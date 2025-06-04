@@ -19,7 +19,6 @@ const Listings = () => {
       skip: !authUser?.cognitoInfo?.userId,
     }
   );
-  console.log("tenant", tenant);
 
   const [addFavorite] = useAddFavoritePropertyMutation();
   const [removeFavorite] = useRemoveFavoritePropertyMutation();
@@ -31,7 +30,6 @@ const Listings = () => {
     isLoading,
     isError,
   } = useGetPropertiesQuery(filters);
-  console.log("properties", properties);
 
   const handleFavoriteToggle = async (propertyId: number) => {
     if (!authUser) return;
