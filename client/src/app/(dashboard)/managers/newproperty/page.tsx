@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 
 const NewProperty = () => {
-  const [createProperty] = useCreatePropertyMutation();
+  const [createProperty, { isLoading }] = useCreatePropertyMutation();
   const { data: authUser } = useGetAuthUserQuery();
 
   const form = useForm<PropertyFormData>({
@@ -229,7 +229,7 @@ const NewProperty = () => {
               type="submit"
               className="bg-primary-700 text-white w-full mt-8"
             >
-              Create Property
+              {isLoading ? "Creating..." : "Create Property"}
             </Button>
           </form>
         </Form>
