@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "RENTiful | Mingzhi Wen",
   description: "A rental property management system",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
